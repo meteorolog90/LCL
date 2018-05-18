@@ -4,10 +4,11 @@ implicit none
 
 integer :: i,j
 integer, parameter :: N = 45623
-real, dimension(N) :: Soil_aver, Soil_min, Soil_max, Padavine,&
-                      tsr,tmin,tmax,rvsr,Dew_aver, Dew_min,eto,mpvptsr,&
+real, dimension(N) :: Soil_aver,Soil_min,Soil_max,Padavine,&
+                      tsr,tmin,tmax,rvsr,Dew_aver,Dew_min,eto,mpvptsr,&
                       mpvptmax,mpvptmin,ppvptsr,ppvptmin,ppvptmax
-real, dimension(N) :: gama=0.786,alfa,beta,zlcl,zk,k,Tlcl,lclB,zo=1,Gs=0.0065
+real, dimension(N) :: gama=0.786,alfa,beta,zlcl,zk,k,Tlcl,lclB,zo=0.5,Gs=0.0065
+real, dimension(N) :: HLCL
 
 integer, dimension(N) :: Battery, Leaf_Wetness, Water1, Water2, Water3, &
                          Water4, Water5, Water6
@@ -18,7 +19,7 @@ integer, dimension(N) :: Battery, Leaf_Wetness, Water1, Water2, Water3, &
 !ppvp - parcijalni pritisak vodene pare
 
 
-10    FORMAT (f6.1,f6.1,f6.1)
+10    FORMAT (f6.1,f6.1,f6.1,f6.1)
 
 open (unit = 10, file = "Senta.csv", status="old")
 open (unit = 11, file = "lcl.csv")
@@ -45,11 +46,11 @@ Tlcl(i) = Dew_aver(i)-k(i)*(tsr(i)-Dew_aver(i))
 
 lclB(i) = zo(i)+(tsr(i)-Tlcl(i))/Gs(i)
 
+!Lanrence(2005)
 
+HLCL(i) = zo(i)+ (20+(tsr(i)/5))*100*(1-(rvsr(i)/100))
 
-
-
-write (11,*) zlcl(i),zk(i),lclB(i)
+write (11,10) HLCL(i)
 
 
 
