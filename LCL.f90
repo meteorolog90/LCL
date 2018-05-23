@@ -44,14 +44,14 @@ zk(i) = 4000*((100-rvsr(i))/(100+rvsr(i)))
 k(i) = 0.001296*Dew_aver(i) + 0.1963
 Tlcl(i) = Dew_aver(i)-k(i)*(tsr(i)-Dew_aver(i))
 
-lclB(i) = zo(i)+(tsr(i)-Tlcl(i))/Gs(i)
+lclB(i) = zo(i)+ABS(tsr(i)-Tlcl(i))/Gs(i)
 
 !Lanrence(2005)
 
 HLCL(i) = zo(i)+ (20+(tsr(i)/5))*100*(1-(rvsr(i)/100))
 
-write (11,10) HLCL(i), zlcl(i)
-
+write (11, FMT="(3(F10.2,5x))") HLCL(i), zlcl(i), lclB(i)
+! 3: tri kolone, F10.2: 10 cifarni broj sa 2 broja iza zareza, 5x razmak između kolona
 
 
 end do
