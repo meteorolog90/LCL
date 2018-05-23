@@ -35,8 +35,8 @@ read (10,*) Soil_aver(i),Soil_min(i),Soil_max(i),Padavine(i),Battery(i),&
 
 
 
-
-zlcl(i) = 125*(tsr(i)-Dew_aver(i))
+!epsy metod
+zlcl(i) = 125*ABS(tsr(i)-Dew_aver(i))
 zk(i) = 4000*((100-rvsr(i))/(100+rvsr(i)))
 
 !BARNES METOD
@@ -50,7 +50,7 @@ lclB(i) = zo(i)+(tsr(i)-Tlcl(i))/Gs(i)
 
 HLCL(i) = zo(i)+ (20+(tsr(i)/5))*100*(1-(rvsr(i)/100))
 
-write (11,10) HLCL(i)
+write (11,10) HLCL(i), zlcl(i)
 
 
 
